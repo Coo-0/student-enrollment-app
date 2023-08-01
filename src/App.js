@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from './reducers/studentReducer';
+import Page1 from './components/Page1';
+import ChatbotComponent from './components/ChatbotComponent';
+import Page3 from './components/Page3';
 
-function App() {
+const store = createStore(rootReducer);
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router base href='/'>
+        <Switch>
+          <Route exact path="/" component={Page1} />
+          <Route path="/chatbot" component={ChatbotComponent} />
+          <Route path="/confirmation" component={Page3} />
+        </Switch>
+      </Router>
+    </Provider>
   );
-}
+};
 
 export default App;
